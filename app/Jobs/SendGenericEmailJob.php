@@ -2,27 +2,25 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
+use App\Mail\GenericMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Mail;
 
-class MotivateUser implements ShouldQueue
+class SendGenericEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected User $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(public string $to, public string $subject, public string $body)
     {
-        $this->user = $user;
     }
 
     /**
@@ -32,6 +30,6 @@ class MotivateUser implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->touch();
+        Mail::to($this->to)->send(new GenericMail($this->subject, $this->body));
     }
 }

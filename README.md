@@ -26,3 +26,91 @@ You can now clone your laravel-9 repository on your machine (in my case in the c
 
 cd ~/code
 git clone git@github.com:<your_username>/laravel-9.git
+
+## TODO
+1. [x] Send Email
+1. [x] Store in ES
+1. [x] Cache in Redis
+1. [x] Queued Job for Email sending
+1. [x] List Email
+1. [x] Test for Send API and Job
+1. [ ] Test for Listing API
+
+
+## Response Sample
+Endpoints
+```
+POST /api/{user}/send
+GET /api/{user}/list
+```
+
+### Send Email
+Request
+```
+http://localhost:8000/api/1/send?api_token=005feeea152f6861a295afdb3314e017bc4d9af8
+
+
+{
+    "data": [
+        {
+            "email": "toemail1@gmail.com",
+            "subject": "Subject 1",
+            "body": "Body 1"
+        },
+        {
+            "email": "toemail2@gmail.com",
+            "subject": "Subject 2",
+            "body": "Body 2"
+        }
+    ]
+}
+```
+
+Response
+```
+{
+    "message": "Emails sent successfully"
+}
+```
+
+### List Email
+Request
+```
+http://localhost:8000/api/1/list?api_token=005feeea152f6861a295afdb3314e017bc4d9af8
+```
+
+Response
+```
+{
+    "data": [
+        {
+            "id": "uN09V4sBeF8P419eGrh7",
+            "email": "toemail1@gmail.com",
+            "subject": "Subject 1",
+            "body": "Body 1",
+            "timestamp": "2023-10-22T11:55:03.585266Z"
+        },
+        {
+            "id": "wd0-V4sBeF8P419ezrgV",
+            "email": "toemail1@gmail.com",
+            "subject": "Subject 1",
+            "body": "Body 1",
+            "timestamp": "2023-10-22T11:56:55.113742Z"
+        },
+        {
+            "id": "LhhEV4sBnMlb8uehu-EP",
+            "email": "toemail1@gmail.com",
+            "subject": "Subject 1",
+            "body": "Body 1",
+            "timestamp": "2023-10-22T12:03:23.441811Z"
+        },
+        {
+            "id": "LxhEV4sBnMlb8uehwuFl",
+            "email": "toemail2@gmail.com",
+            "subject": "Subject 2",
+            "body": "Body 2",
+            "timestamp": "2023-10-22T12:03:25.319380Z"
+        }
+    ]
+}
+```

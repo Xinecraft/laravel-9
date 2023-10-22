@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth.apitoken')->group(function () {
+    Route::post('/{user}/send', [\App\Http\Controllers\EmailController::class, 'send'])->name('email.send');
+    Route::get('/{user}/list', [\App\Http\Controllers\EmailController::class, 'list'])->name('email.list');
 });

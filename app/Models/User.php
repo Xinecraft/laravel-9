@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Jobs\MotivateUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-use App\Jobs\MotivateUser;
 
 class User extends Authenticatable
 {
@@ -42,7 +40,7 @@ class User extends Authenticatable
      */
     protected $dates = [
         'email_verified_at',
-        'last_email_sent_at'
+        'last_email_sent_at',
     ];
 
     /**
@@ -64,17 +62,13 @@ class User extends Authenticatable
 
     /**
      * Create a greeting that we can display to the user.
-     *
-     * @param  bool  $smallTalk
-     * @param  string  $salutation
-     * @return string
      */
-    public function getGreeting(bool $smallTalk = true, string $salutation): string
+    public function getGreeting(bool $smallTalk, string $salutation): string
     {
         $greeting = "$salutation, {$this->name}!";
 
         if ($smallTalk) {
-            $greeting .= " Lovely weather we are having!";
+            $greeting .= ' Lovely weather we are having!';
         }
 
         return $greeting;
